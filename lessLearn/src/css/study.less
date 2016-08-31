@@ -1,0 +1,86 @@
+@color: #4D926F;
+
+#header {
+    color: @color;
+}
+h2 {
+    color: @color;
+}
+
+
+@colors:#fff,#0f0,#f0f;
+.skin{
+	 color: extract(@colors, 0);
+	height:12px *length(@colors);
+}
+
+.main{
+	padding:10px;
+	
+	> div {
+		width:100px;
+	}
+	
+	.aside{
+		width:200px;
+	}
+}
+
+.rounded-corners (@radius: 5px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    -ms-border-radius: @radius;
+    -o-border-radius: @radius;
+    border-radius: @radius;
+}
+
+#header {
+    .rounded-corners;
+}
+#footer {
+    .rounded-corners(10px);
+}
+
+
+//mixin 
+
+.a,#b{
+	color:red;
+}
+.mixin-class{
+	.a();
+}
+.mixin-id{
+	#b();
+}
+
+//selectors in mixiins 
+.my-hover-mixin(){
+	&:hover{
+	
+		border:1px solid red;
+	}
+	
+}
+
+button{
+	.my-hover-mixin();
+}
+
+/*
+字符串插值
+变量可以想@{name}
+*/
+@base-url: "http://assets.fnord.com";
+stringinsert{
+	background-image: url("@{base-url}/images/bg.png");
+}
+/*
+选择器插值
+
+如果需要在选择器中使用 LESS 变量，只需通过使用和字符串插件一样的 @{selector} 即可，例如：
+*/
+@name: blocked;
+.@{name} {
+  color:black;
+}

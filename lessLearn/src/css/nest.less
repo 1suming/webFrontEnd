@@ -1,0 +1,44 @@
+/*
+嵌套规则
+*/
+#header{
+	color:black;
+
+	.navigation{
+		font-size:12px;
+	}
+
+	.logo{
+		width:300px;
+
+		&:hover{
+			text-decoration: none;
+		}
+	}
+}
+/*
+注意 & 符号的使用 — 如果你想写串联选择器，而不是写后代选择器，
+就可以用到 & 了。这点对伪类尤其有用如 :hover 和 :focus。
+*/
+.bordered{
+	&.float{ //输出.bordered.float
+		float:left;
+	}
+}
+
+/*
+& 的高级用法
+
+用在选择器中的&还可以反转嵌套的顺序并且可以应用到多个类名上。
+*/
+.child, .sibling{
+	.parent &{
+		color:black;
+	}
+	& + & {
+		color:red;
+	}
+}
+/*
+&也可以用在混合中用于指示嵌套这个混合的父选择器。
+*/

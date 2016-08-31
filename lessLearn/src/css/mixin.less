@@ -1,0 +1,144 @@
+/*
+加()不会显示到css
+*/
+.border(){
+
+	border-top:dotted 1px black;
+	border-bottom:solid 2px black;
+}
+
+#menu a{
+	color:red;
+	.border;
+}
+
+
+.border-radius (@radius) {
+    border-radius: @radius;
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
+}
+
+
+#header{
+
+	.border-radius(4px);
+} 
+
+
+/*
+多参数混合
+使用同样的名字和同样数量的参数定义多个混合是合法的
+\。在被调用时，LESS会应用到所有可以应用的混合上。
+比如你调用混合时只传了一个参数.mixin(green)，
+那么所有只强制要求一个参数的混合都会被调用：
+*/
+
+.mixin(@color) {
+    color-1: @color;
+}
+.mixin(@color; @padding:2) {
+    color-2: @color;
+    padding-2: @padding;
+}
+.mixin(@color; @padding; @margin: 2) {
+    color-3: @color;
+    padding-3: @padding;
+    margin: @margin @margin @margin @margin;
+}
+.some .selector div {
+    .mixin(#008000);
+}
+
+/*
+@arguments变量
+*/
+.box-shadow (@x: 0, @y: 0, @blur: 1px, @color: #000) {
+    box-shadow: @arguments;
+    -moz-box-shadow: @arguments;
+    -webkit-box-shadow: @arguments;
+}
+.argumentDiv{
+	.box-shadow(2px,5px);
+}
+/*
+!important关键字
+
+调用时在混合后面加上!important关键字表示将混合带来的所有属性标记为!important：
+
+*/
+
+/*
+模式匹配与Guard表达式
+
+LESS 提供了通过参数值控制 mixin 行为的功能，让我们先从最简单的例子开始：
+以下是整个过程如何发生的：
+
+第一个 .mixin 没有匹配，因为不满足 dark 条件；
+第二个 .mixin 可以被匹配，因为它满足了 light 条件；
+第三个 .mixin 也可以被匹配，因为它接受任何参数。
+*/
+
+
+.mixin5 (dark, @color) {
+    color: darken(@color, 10%);
+}
+.mixin5 (light, @color) {
+    color: lighten(@color, 10%);
+}
+.mixin5 (@_, @color) {
+    display: block;
+}
+
+@switch:light;
+
+.class{
+	.mixin5(@switch,#888);
+}
+/*
+guard匹配
+*/
+.mixin6 (@a) when (lightness(@a) >= 50%) {
+    background-color: black;
+}
+.mixin6 (@a) when (lightness(@a) < 50%) {
+    background-color: white;
+}
+.mixin6(@a){
+	color:@a;
+}
+
+.class6{
+	.mixin6(#ddd);
+}
+.class7{
+	.mixin6(#555);
+}
+/*以上输出
+.class1 {
+    background-color: black;
+    color: #ddd;
+}
+.class2 {
+    background-color: white;
+    color: #555;
+}
+
+*/
+
+@media:mobile;
+
+.mixin7 (@a) when (@media = mobile){
+	media:mobile;
+}
+.mixin7(@a) when (@media =desktop){
+	media:desktop;
+}
+
+.max(@a,@b) when (@a>@b) {width:@a;}
+.max(@a,@b) when (@a<@b) { width:@b;}
+
+max{
+	.mixin7(1);
+	.max(3,2);
+}

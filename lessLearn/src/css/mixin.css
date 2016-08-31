@@ -1,0 +1,79 @@
+/*
+加()不会显示到css
+*/
+#menu a {
+  color: red;
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
+}
+#header {
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+/*
+多参数混合
+使用同样的名字和同样数量的参数定义多个混合是合法的
+\。在被调用时，LESS会应用到所有可以应用的混合上。
+比如你调用混合时只传了一个参数.mixin(green)，
+那么所有只强制要求一个参数的混合都会被调用：
+*/
+.some .selector div {
+  color-1: #008000;
+  color-2: #008000;
+  padding-2: 2;
+}
+/*
+@arguments变量
+*/
+.argumentDiv {
+  box-shadow: 2px 5px 1px #000;
+  -moz-box-shadow: 2px 5px 1px #000;
+  -webkit-box-shadow: 2px 5px 1px #000;
+}
+/*
+!important关键字
+
+调用时在混合后面加上!important关键字表示将混合带来的所有属性标记为!important：
+
+*/
+/*
+模式匹配与Guard表达式
+
+LESS 提供了通过参数值控制 mixin 行为的功能，让我们先从最简单的例子开始：
+以下是整个过程如何发生的：
+
+第一个 .mixin 没有匹配，因为不满足 dark 条件；
+第二个 .mixin 可以被匹配，因为它满足了 light 条件；
+第三个 .mixin 也可以被匹配，因为它接受任何参数。
+*/
+.class {
+  color: #a2a2a2;
+  display: block;
+}
+/*
+guard匹配
+*/
+.class6 {
+  background-color: black;
+  color: #ddd;
+}
+.class7 {
+  background-color: white;
+  color: #555;
+}
+/*以上输出
+.class1 {
+    background-color: black;
+    color: #ddd;
+}
+.class2 {
+    background-color: white;
+    color: #555;
+}
+
+*/
+max {
+  media: mobile;
+  width: 3;
+}
